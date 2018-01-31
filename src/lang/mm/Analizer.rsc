@@ -26,6 +26,8 @@ import Set;
 public bool isConnected(Diagram d)
   = isConnected(d.elements);
 
+//es = edge/element something?
+//e_node = edge/element node?
 public bool isConnected(set[Element] es)
 {
   visit(es)

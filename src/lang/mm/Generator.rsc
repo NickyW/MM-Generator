@@ -25,12 +25,17 @@ import lang::mm::AST;
 import Set;
 import util::Math;
 
+// nCnt = node count?
+// eCnt = edge/element count?
+// es = ?
 public Diagram randomDiagram(int nCnt, int eCnt) {
 	set[Element] es = randomNodes(nCnt);
 	es += randomEdges(eCnt, nCnt);
 	return diagram(es);
 }
 
+// nCnt = node count?
+// s in nts/ws/as/hs = ?
 private set[Element] randomNodes(int nCnt) {
 	// e_node(NodeType nodeType, When when, Act act, How how, ID name, Category cat)
 	set[NodeType] nts = {t_pool(), t_gate(), t_source(), t_drain(), t_converter()};
@@ -52,6 +57,9 @@ private set[Element] randomNodes(int nCnt) {
 	return es;
 }
 
+// eCnt = edge/element count?
+// nCnt = node count?
+// s in ets/es = ?
 private set[Element] randomEdges(int eCnt, int nCnt) {
 	//e_edge(EdgeType edgeType, ID name, ID src, Exp exp, ID tgt)
 	set[EdgeType] ets = {t_flow(), t_state(), t_trigger(), t_condition()};
@@ -69,6 +77,7 @@ private set[Element] randomEdges(int eCnt, int nCnt) {
 	return es;
 }
 
+// e in e_one/e_trigger/e_die/e_per = ?
 private Exp randomExp(bool isRecursive) {
 	// desugared e_one() e_trigger() e_die(int size) e_per(Exp e, int n)
 	int r = arbInt(isRecursive ? 3 : 4);

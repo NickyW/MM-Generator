@@ -32,6 +32,14 @@ import util::Math;
 import String;
 import ParseTree;
 
+// dCnt = diagram count?
+// nM = node something?
+// nR = node something?
+// eM = edge/element something?
+// eR = edge/element something?
+// c = ?
+// nc = ?
+// n = ?
 public void generate(int dCnt, int nM, nR, eM, eR) {
 	println("start");
 	loc file = |project://MM-Generator/output/connected.txt|;
@@ -52,6 +60,10 @@ public void generate(int dCnt, int nM, nR, eM, eR) {
 	println(toString(nc) + " " + toString(c));
 }
 
+// dCnt = diagram count?
+// cCnt = something count?
+// vCnt = something count?
+// dl = delete?
 public void checkInput(str file) {
 	if(!endsWith(file, ".txt"))
 		file += ".txt";
