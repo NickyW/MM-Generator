@@ -1,2 +1,9 @@
 # Mac Finder files
 *.DS_Store
+
+# Rascal related files
+*.tc
+*.rvm
+*.sig
+*.sigs
+*.imps

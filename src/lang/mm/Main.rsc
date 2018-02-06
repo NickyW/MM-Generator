@@ -56,7 +56,7 @@ public void generate(int diagramCnt, int nodeOffset, nodeLimit, edgeOffset, edge
 		else nonConnectedDiagramCnt+=1;
 	}
 	
-	println(toString(nonConnectedDiagramCnt) + " " + toString(c));
+	println(toString(nonConnectedDiagramCnt) + " " + toString(connectedDiagramCnt));
 }
 
 // Reads the file from the input folder, checks if the diagrams are valid and if they are connected. (Where every node is at least connected to one other node.)

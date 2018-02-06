@@ -24,7 +24,7 @@ import lang::mm::AST;
 import String;
 import List;
 
-// es = edge/element something?
+// es = elements?
 // endE = ?
 public Diagram parseDiagram(str src) {
 	if(!startsWith(src, "diagram({") && findFirst(src, "})") != -1)
