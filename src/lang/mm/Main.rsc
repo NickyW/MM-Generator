@@ -32,59 +32,55 @@ import util::Math;
 import String;
 import ParseTree;
 
-// dCnt = diagram count?
-// nM = node something?
-// nR = node something?
-// eM = edge/element something?
-// eR = edge/element something?
-// c = ?
-// nc = ?
-// n = ?
-public void generate(int dCnt, int nM, nR, eM, eR) {
+// Generates MM diagrams and displays the number of connected diagrams. (Where every node is at least connected to one other node.)
+//
+// @param diagramCnt	The number of diagrams to generate.
+// @param nodeOffset	The minimum amount of nodes to generate.
+// @param nodeLimit		The limit of random nodes to generate.
+// @param edgeOffset	The minimum amount of edges to generate.
+// @param edgeLimit		The limit of random edges to generate.
+public void generate(int diagramCnt, int nodeOffset, nodeLimit, edgeOffset, edgeLimit) {
 	println("start");
 	loc file = |project://MM-Generator/output/connected.txt|;
 	writeFile(file, "");
-	int c = 0;
-	int nc = 0;
-	for(int n <- [0 .. dCnt]) {
-		int nCnt = arbInt(nR) + nM; // r4 m1(1-4) & r5 m3(3-7)
-		int eCnt = arbInt(eR) + eM; // r4 m1(1-4) & r4 m3(3-6)
-		Diagram d = randomDiagram(nCnt, nCnt);
+	int connectedDiagramCnt = 0;
+	int nonConnectedDiagramCnt = 0;
+	for(int n <- [0 .. diagramCnt]) {
+		int nodeCnt = arbInt(nodeLimit) + nodeOffset; // r4 m1(1-4) & r5 m3(3-7)
+		int edgeCnt = arbInt(edgeLimit) + edgeOffset; // r4 m1(1-4) & r4 m3(3-6)
+		Diagram d = randomDiagram(nodeCnt, edgeCnt);
 		if(isConnected(d)) {
 			appendToFile(file, d);
-			c+=1;
+			connectedDiagramCnt+=1;
 			}
-		else nc+=1;
+		else nonConnectedDiagramCnt+=1;
 	}
 	
-	println(toString(nc) + " " + toString(c));
+	println(toString(nonConnectedDiagramCnt) + " " + toString(c));
 }
 
-// dCnt = diagram count?
-// cCnt = something count?
-// vCnt = something count?
-// dl = delete?
+// Reads the file from the input folder, checks if the diagrams are valid and if they are connected. (Where every node is at least connected to one other node.)
 public void checkInput(str file) {
 	if(!endsWith(file, ".txt"))
 		file += ".txt";
 	str src = readFile(|project://MM-Generator/input/| + file);
-	list[str] dl = split("\n", src);
-	int dCnt =  size(dl);
-	int cCnt = 0;
-	int vCnt = 0;
-	while(size(dl) != 0) {
-		str s = top(dl);
-		dl = delete(dl, 0);
+	list[str] diagrams = split("\n", src);
+	int diagramCnt =  size(diagrams);
+	int connectedDiagramCnt = 0;
+	int validDiagramCnt = 0;
+	while(size(diagrams) != 0) {
+		str diagram = top(diagrams);
+		diagrams = delete(diagrams, 0);
 		try
-			lang::mm::AST::MM var = mm_implode(parse(#start[MM], s));
+			lang::mm::AST::MM var = mm_implode(parse(#start[MM], diagram));
 		catch e:
 			continue;
-		//parseDiagram(s);
-		vCnt+=1;
+		//parseDiagram(diagram);
+		validDiagramCnt+=1;
 		if(isConnected(d))
-			cCnt+=1;
+			connectedDiagramCnt+=1;
 	}
-	println("Total entries:"+toString(dCnt));
-	println("Total valit diagrams:"+toString(vCnt));
-	println("Total connected diagrams:"+toString(cCnt));
+	println("Total entries:"+toString(diagramCnt));
+	println("Total valid diagrams:"+toString(validDiagramCnt));
+	println("Total connected diagrams:"+toString(connectedDiagramCnt));
 }
