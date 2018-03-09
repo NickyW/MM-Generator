@@ -39,7 +39,9 @@ import ParseTree;
 // @param nodeLimit		The limit of random nodes to generate.
 // @param edgeOffset	The minimum amount of edges to generate.
 // @param edgeLimit		The limit of random edges to generate.
-public void generate(int diagramCnt, int nodeOffset, nodeLimit, edgeOffset, edgeLimit) {
+//
+// Currently having a good amount of connected diagrams with generate(x, 2, 4, 2, 4);
+public void generate(int diagramCnt, int nodeOffset, int nodeLimit, int edgeOffset, int edgeLimit) {
 	println("start");
 	loc file = |project://MM-Generator/output/connected.txt|;
 	writeFile(file, "");
@@ -51,6 +53,7 @@ public void generate(int diagramCnt, int nodeOffset, nodeLimit, edgeOffset, edge
 		Diagram d = randomDiagram(nodeCnt, edgeCnt);
 		if(isConnected(d)) {
 			appendToFile(file, d);
+			appendToFile(file, "\n"); // Assuming we want every diagram to start on a new line
 			connectedDiagramCnt+=1;
 			}
 		else nonConnectedDiagramCnt+=1;
